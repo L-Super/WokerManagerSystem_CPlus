@@ -6,11 +6,11 @@
 #include "worker.h"
 #define FILENAME "File.txt"
 using namespace std;
-class WorkManger
+class WorkManager
 {
 public:
 	//构造函数
-	WorkManger();
+	WorkManager();
 	//展示菜单
 	void Show_Menu();
 	//记录职工人数
@@ -29,10 +29,15 @@ public:
 	void init_Emp();
 	//显示职工
 	void ShowEmp();
+	//删除职工
+	void Del_Emp();
+	//判断职工是否存在 如果存在返回职工所在数组中的位置，不存在返回-1
+	int IsExist(int id);
+	//修改职工
+	void Mod_Emp();
 
 	void exitsystem();
-	~WorkManger();
-
+	~WorkManager();
 private:
 
 };

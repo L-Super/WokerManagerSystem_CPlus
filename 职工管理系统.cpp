@@ -23,7 +23,7 @@ int main()
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 	//实例化管理者对象
-	WorkManger w;
+	WorkManager w;
 	int choice = 0;//用户选项
 	/*cout << "输入选项" << endl;
 	w.Show_Menu();*/
@@ -48,9 +48,20 @@ int main()
 			break;
 			//删除员工
 		case 3:
+		//{//测试
+		//	int ret = w.IsExist(1);
+		//	if (ret != -1)
+		//		cout << "职工存在" << endl;
+		//	else
+		//		cout << "职工不存在" << endl;
+
+		//	break; 
+		//}
+			w.Del_Emp();
 			break;
 			//修改员工
 		case 4:
+			w.Mod_Emp();
 			break;
 			//查找职工
 		case 5:

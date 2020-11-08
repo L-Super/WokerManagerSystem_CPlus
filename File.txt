@@ -1,2 +1,5 @@
-1 JACK 1
-2 MARRY 2
+1  JACK  1
+2  Haary  2
+4  Ella  2
+5  Tesla  4
+6  Hash  1
