@@ -35,6 +35,8 @@ public:
 	int IsExist(int id);
 	//修改职工
 	void Mod_Emp();
+	//查找职工
+	void Find_Emp();
 
 	void exitsystem();
 	~WorkManager();
