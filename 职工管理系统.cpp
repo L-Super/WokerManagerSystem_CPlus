@@ -38,14 +38,17 @@ int main()
 		case 0:
 			w.exitsystem();
 			break;
+
 			//增加员工
 		case 1:
 			w.Add_Emp();
 			break;
+
 			//显示员工
 		case 2:
 			w.ShowEmp();
 			break;
+
 			//删除员工
 		case 3:
 		//{//测试
@@ -59,21 +62,26 @@ int main()
 		//}
 			w.Del_Emp();
 			break;
+
 			//修改员工
 		case 4:
 			w.Mod_Emp();
 			break;
+
 			//查找职工
 		case 5:
 			w.Find_Emp();
 			break;
+
 			//职工排序
 		case 6:
 			w.Sort_Emp();
 			break;
+
 			//清空文档
 		case 7:
 			break;
+
 		default:
 			//清屏
 			system("cls");
