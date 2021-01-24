@@ -65,9 +65,11 @@ int main()
 			break;
 			//查找职工
 		case 5:
+			w.Find_Emp();
 			break;
 			//职工排序
 		case 6:
+			w.Sort_Emp();
 			break;
 			//清空文档
 		case 7:

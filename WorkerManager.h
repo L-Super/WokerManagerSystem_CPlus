@@ -37,6 +37,8 @@ public:
 	void Mod_Emp();
 	//查找职工
 	void Find_Emp();
+	//排序职工
+	void Sort_Emp();
 
 	void exitsystem();
 	~WorkManager();

@@ -3,11 +3,42 @@
 #include "employee.h"
 #include "boss.h"
 #include "manager.h"
+void WorkManager::Show_Menu()
+{
+	cout << "*********************" << endl;
+	cout << "欢迎使用职工管理系统" << endl;
+	cout << "1.增加职工信息" << endl;
+	cout << "2.显示职工信息" << endl;
+	cout << "3.删除离职职工" << endl;
+	cout << "4.修改职工信息" << endl;
+	cout << "5.查找职工信息" << endl;
+	cout << "6.按照编号排序" << endl;
+	cout << "7.清空所有文档" << endl;
+	cout << "0.退出管理系统" << endl;
+	cout << "++++++++++++++++++++++" << endl;
+	cout << endl;
+}
+void WorkManager::exitsystem()
+{
+	cout << "系统已退出，欢迎下次使用！" << endl;
+	//system("pause");
+	exit(0);
+}
+WorkManager::~WorkManager()
+{
+	if (this->m_EmpArray != NULL)
+	{
+		delete[] this->m_EmpArray;
+		this->m_EmpArray = NULL;
+	}
+}
+
+
 WorkManager::WorkManager()
 {
 	//1、文件不存在
 	ifstream ifs;
-	ifs.open(FILENAME, ios::in);//读文件
+	ifs.open(FILENAME, ios::in);//读文件,#define FILENAME "File.txt"
 	if (!ifs.is_open())
 	{
 		cout << "文件不存在！" << endl;
@@ -75,36 +106,6 @@ int WorkManager::get_EmpNum()
 	return num;
 }
 
-WorkManager::~WorkManager()
-{
-	if (this->m_EmpArray != NULL)
-	{
-		delete[] this->m_EmpArray;
-		this->m_EmpArray = NULL;
-	}
-}
-
-void WorkManager::Show_Menu()
-{
-	cout << "*********************" << endl;
-	cout << "欢迎使用职工管理系统" << endl;
-	cout << "1.增加职工信息" << endl;
-	cout << "2.显示职工信息" << endl;
-	cout << "3.删除离职职工" << endl;
-	cout << "4.修改职工信息" << endl;
-	cout << "5.查找职工信息" << endl;
-	cout << "6.按照编号排序" << endl;
-	cout << "7.清空所有文档" << endl;
-	cout << "0.退出管理系统" << endl;
-	cout << "++++++++++++++++++++++" << endl;
-	cout << endl;
-}
-void WorkManager::exitsystem()
-{
-	cout << "系统已退出，欢迎下次使用！" << endl;
-	//system("pause");
-	exit(0);
-}
 
 //添加职工
 void WorkManager::Add_Emp()
@@ -302,7 +303,6 @@ void WorkManager::Mod_Emp()
 	}
 	else
 	{
-		
 		//按照编号删除
 		cout << "输入想要修改的职工编号" << endl;
 		int id = 0;
@@ -311,14 +311,22 @@ void WorkManager::Mod_Emp()
 		if (ret != -1)
 		{
 			//查找该编号职工
-			delete this->m_EmpArray[ret];
+			//delete this->m_EmpArray[ret];
 			int newId = 0;
 			string newName = " ";
+			int if_mod_name = 0;
 			int dSelcet = 0;
 			cout << "查到： " << id << "号职工，输入新职工号： " << endl;
 			cin >> newId;
-			//cout << "输入新姓名： " << endl;
-			//cin >> newName;
+			cout << "是否修改姓名：1.是 2.否" << endl;
+			cin >> if_mod_name;
+			if ( if_mod_name == 1)
+			{
+				cout << "输入新姓名： " << endl;
+				cin >> newName;
+			}
+			else
+				newName = this->m_EmpArray[ret]->m_name;
 			cout << "输入岗位：\n1、职工\n2、经理\n3、老板" << endl;
 			cin >> dSelcet;
 			Worker* worker = NULL;
@@ -327,11 +335,11 @@ void WorkManager::Mod_Emp()
 			case 1:
 				//const string name=Employee::Employee-> m_name;
 				//没法不修改姓名，后期可尝试
+				//2021.01.24 解决不修改名字问题
 				worker = new Employee(newId, newName, dSelcet);
 				break;
 			case 2:
 				worker = new Manager(newId, newName, dSelcet);
-
 				break;
 			case 3:
 				worker = new Boss(newId, newName, dSelcet);
@@ -407,4 +415,49 @@ void WorkManager::Find_Emp()
 	}
 	system("pause");
 	//system("cls");
+}
+
+//排序职工
+void WorkManager::Sort_Emp()
+{
+	if (this->m_FileIsEmpty)
+	{
+		cout << "文件不存在或记录为空！" << endl;
+	}
+	else
+	{
+		cout << "选择排序方式：" << endl;
+		cout << "1.按职工号进行升序" << endl;
+		cout << "2.按职工号进行降序" << endl;
+		int select = 0;
+		cin >> select;
+		for (int i = 0; i < m_EmpNum; i++)
+		{
+			int minormax = i;//声明最大值或最小值
+			for(int j=i+1;j<this->m_EmpNum;j++)
+			//升序
+				if (select == 1)
+				{
+					if (this->m_EmpArray[minormax]->m_id > this->m_EmpArray[j]->m_id)
+						minormax = j;
+				}
+			//降序
+				else
+				{
+					if (this->m_EmpArray[minormax]->m_id < this->m_EmpArray[j]->m_id)
+						minormax = j;
+				}
+			//判断一开始认定的minormax是不是计算的最大值或最小值，如果不是交换数据
+			if (i != minormax)
+			{
+				Worker* temp = this->m_EmpArray[i];
+				this->m_EmpArray[i] = this->m_EmpArray[minormax];
+				this->m_EmpArray[minormax] = temp;
+			}
+
+		}
+		cout << "排序成功！结果为：" << endl;
+		this->save();
+		this->ShowEmp();
+	}
 }
