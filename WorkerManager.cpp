@@ -161,8 +161,14 @@ void WorkManager::Add_Emp()
 			}
 			//将创建职工指针，保存在数组中
 			//存在内存溢出问题
-			newSpace[this->m_EmpNum + i] = worker;
+			try {
 
+			}
+			catch (...)
+			{
+				
+			}
+			newSpace[this->m_EmpNum + i] = worker;
 		}
 		//释放原有空间
 		delete[] this->m_EmpArray;
@@ -460,4 +466,35 @@ void WorkManager::Sort_Emp()
 		this->save();
 		this->ShowEmp();
 	}
+}
+
+//清空文档
+void WorkManager::Clean_File()
+{
+	cout << "确定清空？" << endl;
+	cout << "1.确定" << endl;
+	cout << "2.取消" << endl;
+	int select = 0;
+	cin >> select;
+	if (select == 1)
+	{
+		//清空
+		ofstream ofs(FILENAME, ios::trunc);//删除文件后重新创建
+		ofs.close();
+		if (this->m_EmpArray != NULL)
+		{
+			for (int i = 0; i < this->m_EmpNum; i++)
+			{
+				if (this->m_EmpArray[i] != NULL)
+					delete this->m_EmpArray[i];
+				
+			}
+			this->m_EmpNum = 0;
+			delete[] this->m_EmpArray;
+			this->m_EmpArray = NULL;
+			this->m_FileIsEmpty = true;
+		}
+		cout << "清空成功！" << endl;
+	}
+	system("pause");
 }

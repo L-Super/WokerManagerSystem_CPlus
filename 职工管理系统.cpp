@@ -80,6 +80,7 @@ int main()
 
 			//Çå¿ÕÎÄµµ
 		case 7:
+			w.Clean_File();
 			break;
 
 		default:
