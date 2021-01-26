@@ -149,8 +149,16 @@
     <ClInclude Include="boss.h" />
     <ClInclude Include="employee.h" />
     <ClInclude Include="manager.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
     <ClInclude Include="worker.h" />
     <ClInclude Include="WorkerManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="基于多态的职工管理系统.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
