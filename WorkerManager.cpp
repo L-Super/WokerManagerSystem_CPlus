@@ -161,14 +161,9 @@ void WorkManager::Add_Emp()
 			}
 			//将创建职工指针，保存在数组中
 			//存在内存溢出问题
-			try {
-
-			}
-			catch (...)
-			{
-				
-			}
+			
 			newSpace[this->m_EmpNum + i] = worker;
+			
 		}
 		//释放原有空间
 		delete[] this->m_EmpArray;
@@ -252,6 +247,7 @@ void WorkManager::ShowEmp()
 	system("pause");
 	system("cls");
 }
+
 //删除职工
 void WorkManager::Del_Emp()
 {
@@ -268,14 +264,25 @@ void WorkManager::Del_Emp()
 		int index = this->IsExist(id);
 		if (index != -1)//说明存在
 		{
-			//数据前移
-			for (int i = index; i < this->m_EmpNum - 1; i++)
+			/*//客户若想删除最后一个对象 则调用这个if语句
+			if (index == this->m_EmpNum - 1)
 			{
-				this->m_EmpArray[i] = this->m_EmpArray[i + 1];
+				delete this->m_EmpArray[index];
+				this->m_EmpArray[index] = NULL;
 			}
+			else {*/
+				//数据前移
+				for (int i = index; i < this->m_EmpNum - 1; i++)
+				{
+					//若删除最后一个员工，m_EmpArray[i+1]会出现溢出问题
+					this->m_EmpArray[i] = this->m_EmpArray[i + 1];
+				}
+			//}
+			
 			this->m_EmpNum--;//更新数组中记录的人数
 			//数据同步到文件中
 			this->save();
+
 			cout << "删除成功" << endl;
 		}
 		else
